@@ -6,7 +6,11 @@ namespace GameServer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.Title = "Game Server";
+
+            Server.Start(4, 26950);
+
+            Console.ReadKey();
         }
     }
 }
