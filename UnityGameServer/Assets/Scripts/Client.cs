@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
@@ -242,8 +240,11 @@ public class Client
     {
         Debug.Log($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
 
-        UnityEngine.Object.Destroy(player.gameObject);
-        player = null;
+        ThreadManager.ExecuteOnMainThread(() =>
+        {
+            UnityEngine.Object.Destroy(player.gameObject);
+            player = null;
+        });
 
         tcp.Disconnect();
         udp.Disconnect();
