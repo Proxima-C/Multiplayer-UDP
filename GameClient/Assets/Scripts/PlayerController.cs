@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public Transform camTransform;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            ClientSend.PlayerShoot(camTransform.forward);
+        }
+    }
+
     private void FixedUpdate()
     {
         SendInputToServer();
     }
 
+    /// <summary>Sends player input to the server.</summary>
     private void SendInputToServer()
     {
         bool[] _inputs = new bool[]
