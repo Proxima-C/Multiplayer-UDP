@@ -51,6 +51,7 @@ MonoBehaviour:
   username: 
   health: 0
   maxHealth: 100
+  itemCount: 0
   model: {fileID: 1755211667817331211}
 --- !u!114 &6256834062924620515
 MonoBehaviour:
@@ -296,4 +297,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1755211667089809512}
   sensitivity: 100
-  clampAngle: 15
+  clampAngle: 85
