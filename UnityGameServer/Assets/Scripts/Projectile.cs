@@ -8,9 +8,10 @@ public class Projectile : MonoBehaviour
     private static int nextProjectileId = 1;
 
     public int id;
-    public Rigidbody rigidBody;
+    public Rigidbody2D rigidBody;
     public int thrownByPlayer;
-    public Vector3 initialForce;
+    public Vector2 initialForce;
+    public float damage = 25f;
     public float explosionRadius = 1.5f;
     public float explosionDamage = 75f;
 
@@ -23,6 +24,7 @@ public class Projectile : MonoBehaviour
         ServerSend.SpawnProjectile(this, thrownByPlayer);
 
         rigidBody.AddForce(initialForce);
+
         StartCoroutine(ExplodeAfterTime());
     }
 
@@ -31,9 +33,16 @@ public class Projectile : MonoBehaviour
         ServerSend.ProjectilePosition(this);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Explode();
+        if (collision.collider.CompareTag("Player"))
+        {
+            collision.collider.GetComponent<Player>().TakeDamage(damage);
+        }
+
+        ServerSend.ProjectileExploded(this);
+        projectiles.Remove(id);
+        Destroy(gameObject);
     }
 
     public void Initialize(Vector3 _initialMovementDirection, float _initialForceStrength, int _thrownByPlayer)
@@ -46,8 +55,8 @@ public class Projectile : MonoBehaviour
     {
         ServerSend.ProjectileExploded(this);
 
-        Collider[] _colliders = Physics.OverlapSphere(transform.position, explosionRadius);
-        foreach (Collider _collider in _colliders)
+        Collider2D[] _colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
+        foreach (Collider2D _collider in _colliders)
         {
             if (_collider.CompareTag("Player"))
             {
@@ -61,7 +70,7 @@ public class Projectile : MonoBehaviour
 
     private IEnumerator ExplodeAfterTime()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(5f);
 
         Explode();
     }

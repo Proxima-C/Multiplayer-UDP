@@ -8,8 +8,8 @@ public class PlayerManager : MonoBehaviour
     public string username;
     public float health;
     public float maxHealth = 100f;
-    public int itemCount = 0;
-    public MeshRenderer model;
+    public int itemCount = 30;
+    public SpriteRenderer model;
 
     public void Initialize(int _id, string _username)
     {

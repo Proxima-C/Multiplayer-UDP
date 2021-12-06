@@ -27,7 +27,6 @@ public enum ClientPackets
 {
     welcomeReceived = 1,
     playerMovement,
-    playerShoot,
     playerThrowItem
 }
 

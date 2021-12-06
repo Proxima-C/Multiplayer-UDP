@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Transform camTransform;
+    public Transform firePoint;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            ClientSend.PlayerShoot(camTransform.forward);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            ClientSend.PlayerThrowItem(camTransform.forward);
+            ClientSend.PlayerThrowItem(firePoint.forward);
         }
     }
 

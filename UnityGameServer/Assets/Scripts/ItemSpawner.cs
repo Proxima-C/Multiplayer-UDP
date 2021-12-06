@@ -20,7 +20,7 @@ public class ItemSpawner : MonoBehaviour
         StartCoroutine(SpawnItem());
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (hasItem && other.CompareTag("Player"))
         {
